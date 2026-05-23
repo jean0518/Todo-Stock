@@ -1,88 +1,77 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styled from "styled-components";
-export function ReportesTemplate(){
-
-    return (
+export function ReportesTemplate() {
+  return (
     <Container>
-        <PageContainer>
-            <Content>
-                <Outlet/>
-            </Content>
-            <Sidebar>
-                <SidebarSection>
-                    <SidebarTitle>Stock Actual: </SidebarTitle>
-                    <SidebarItem to="Stock-actual-por-producto">Por producto</SidebarItem>
-                    <SidebarItem to="Stock-actual-todos">Todos</SidebarItem>
-                    {/* <SidebarItem to="Stock-bajo-minimo">Bajo del minimo</SidebarItem> */}
-                </SidebarSection>
-            </Sidebar>
-        </PageContainer>
+      <PageContainer>
+        <Content>
+          <Outlet />
+        </Content>
+        <Sidebar>
+          <SidebarSection>
+            <SidebarTitle>Stock Actual:</SidebarTitle>
+            <SidebarItem to="Stock-actual-por-producto">Por producto</SidebarItem>
+            <SidebarItem to="Stock-actual-todos">Todos</SidebarItem>
+          </SidebarSection>
+        </Sidebar>
+      </PageContainer>
     </Container>
-    );
+  );
 }
 
 const Content = styled.div`
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px;
-    flex: 1;
+  flex: 1;
+  min-width: 0;
 `
 const PageContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    @media (min-width: 768px) {
-        flex-direction: row;
-    }
-    
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 16px;
+  width: 100%;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `
 const Container = styled.div`
-    min-height: 100vh;
-    padding: 15px;
-    width: 100%;
-    color: ${({theme}) => theme.text};
+  padding: 24px 0;
+  width: 100%;
+  color: ${({ theme }) => theme.text};
 `;
 const Sidebar = styled.div`
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    @media (min-width: 768px) {
-        width: 250px;
-        order: 2;
-    }
+  @media (min-width: 768px) {
+    width: 220px;
+    flex-shrink: 0;
+  }
 `;
 const SidebarSection = styled.div`
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border: 2px solid ${({theme}) => theme.color2};
-    padding: 12px;
+  background: ${({ theme }) => theme.bg};
+  border: 1px solid ${({ theme }) => theme.bg4};
+  border-radius: 16px;
+  padding: 16px;
 `;
 const SidebarTitle = styled.h3`
-    margin-bottom: 20px;
-    font-size: 1.2rem;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colortitlecard};
 `;
 const SidebarItem = styled(NavLink)`
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border: 12px;
-    cursor: pointer;
-    margin: 5px 0;
-    padding: 0 5%;
-    text-decoration: none;
-    color: ${(props) => props.theme.text};
-    height: 60px;
-    &:hover {
-        color: ${(props) => props.theme.colorSubtitle};
-    }
-    &.active {
-        background: ${(props) => props.theme.bg6};
-        border: 2px solid ${(props) => props.theme.bg5};
-        border-radius: 10px;
-        color: ${(props) => props.theme.color1};
-        font-weight: 600;
-    }
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colorSubtitle};
+  font-size: 0.9rem;
+  transition: all 0.15s;
+  margin: 2px 0;
+  &:hover {
+    background: ${({ theme }) => theme.bgAlpha};
+    color: ${({ theme }) => theme.primary};
+  }
+  &.active {
+    background: ${({ theme }) => theme.bgAlpha};
+    color: ${({ theme }) => theme.primary};
+    font-weight: 600;
+  }
 `

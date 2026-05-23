@@ -92,11 +92,11 @@ export function RegistrarCategorias({ onClose, dataSelect, accion }) {
   );
 }
 const Container = styled.div`
-  transition: 0.5s;
   top: 0;
   left: 0;
   position: fixed;
-  background-color: rgba(10, 9, 9, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   display: flex;
   width: 100%;
   min-height: 100vh;
@@ -106,31 +106,38 @@ const Container = styled.div`
 
   .sub-contenedor {
     width: 500px;
-    max-width: 85%;
+    max-width: 92%;
     border-radius: 20px;
-    background: ${({ theme }) => theme.bgtotal};
-    box-shadow: -10px 15px 30px rgba(10, 9, 9, 0.4);
-    padding: 13px 36px 20px 36px;
+    background: ${({ theme }) => theme.bg};
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 24px 32px 28px;
     z-index: 100;
+    border: 1px solid ${({ theme }) => theme.bg4};
 
     .headers {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
 
       h1 {
-        font-size: 20px;
-        font-weight: 500;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: ${({ theme }) => theme.colortitlecard};
       }
       span {
-        font-size: 20px;
+        font-size: 24px;
         cursor: pointer;
+        color: ${({ theme }) => theme.colorSubtitle};
+        transition: color 0.2s;
+        line-height: 1;
+        &:hover { color: #DC2626; }
       }
     }
+
     .formulario {
       section {
-        gap: 20px;
+        gap: 16px;
         display: flex;
         flex-direction: column;
         .colorContainer {
@@ -140,6 +147,10 @@ const Container = styled.div`
           }
         }
       }
+    }
+
+    .btnguardarContent {
+      margin-top: 8px;
     }
   }
 `;

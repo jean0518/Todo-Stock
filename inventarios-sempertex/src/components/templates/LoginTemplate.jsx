@@ -1,14 +1,13 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Btnsave, _v, useAuthStore, InputText, FooterLogin } from "../../index";
-import { Device } from "../../styles/breakpoints";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import carrito from "../../assets/carrito.svg";
 import logo from "../../assets/inventarioslogo.png";
 import { MdOutlineInfo } from "react-icons/md";
 import { ThemeContext } from "../../App";
 import { RegistrarAdmin } from "../organismos/formularios/RegistrarAdmin";
+
 export function LoginTemplate() {
   const { setTheme } = useContext(ThemeContext);
   setTheme("light");
@@ -21,6 +20,7 @@ export function LoginTemplate() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   async function iniciar(data) {
     const response = await signInWithEmail({
       correo: data.correo,
@@ -35,198 +35,223 @@ export function LoginTemplate() {
 
   return (
     <Container>
-      <div className="contentLogo">
-        <img src={logo}></img>
-        <span>Inventario TI</span>
+      <div className="bg-shapes">
+        <div className="shape shape-1" />
+        <div className="shape shape-2" />
+        <div className="shape shape-3" />
+        <div className="shape shape-4" />
       </div>
-      <div className="bannerlateral">
-        <img src={carrito}></img>
-      </div>
+      <div className="login-wrapper">
+        {state && <RegistrarAdmin setState={() => setState(!state)} />}
+        <Card>
+          <div className="card-header">
+            <img src={logo} alt="logo" />
+            <h1>Inventario TI</h1>
+            <p>Controla tu inventario de forma inteligente</p>
+          </div>
 
-      <div className="contentCard">
-        <div className="card">
-        {
-            state && <RegistrarAdmin setState={()=>setState(!state)}/>
-        }
+          {stateInicio && <ErrorMsg>Credenciales incorrectas</ErrorMsg>}
 
-          <Titulo>Inventario TI</Titulo>
-          {stateInicio && (
-            <TextoStateInicio>datos incorrectos</TextoStateInicio>
-          )}
-          <span className="ayuda">
-            {" "}
-            Puedes crear una cuenta nueva ó <br></br>solicitar a tu empleador
-            una. <MdOutlineInfo />
-          </span>
-          <p className="frase">Controla tu inventario.</p>
           <form onSubmit={handleSubmit(iniciar)}>
             <InputText icono={<_v.iconoemail />}>
               <input
                 className="form__field"
                 type="text"
-                {...register("correo", {
-                  required: true,
-                })}
+                placeholder="correo"
+                {...register("correo", { required: true })}
               />
-              <label className="form__label">email</label>
-              {errors.correo?.type === "required" && <p>Campo requerido</p>}
+              <label className="form__label">Correo electrónico</label>
+              {errors.correo && <span className="field-error">Campo requerido</span>}
             </InputText>
+
             <InputText icono={<_v.iconopass />}>
               <input
                 className="form__field"
                 type="password"
-                {...register("pass", {
-                  required: true,
-                })}
+                placeholder="contraseña"
+                {...register("pass", { required: true })}
               />
-              <label className="form__label">pass</label>
-              {errors.pass?.type === "required" && <p>Campo requerido</p>}
+              <label className="form__label">Contraseña</label>
+              {errors.pass && <span className="field-error">Campo requerido</span>}
             </InputText>
-            <ContainerBtn>
-              <Btnsave titulo="Iniciar" bgcolor="#fc6b32" />
-              <Btnsave
-                funcion={() => setState(!state)}
-                titulo="Crear cuenta"
-                bgcolor="#ffffff"
-              />
-            </ContainerBtn>
+
+            <div className="card-actions">
+              <Btnsave titulo="Iniciar sesión" bgcolor="#4F8CFF" />
+              <button type="button" className="btn-link" onClick={() => setState(!state)}>
+                Crear cuenta nueva
+              </button>
+            </div>
           </form>
-        </div>
+
+          <div className="card-footer-info">
+            <MdOutlineInfo />
+            <span>Puedes crear una cuenta nueva o solicitar una a tu empleador</span>
+          </div>
+        </Card>
         <FooterLogin />
       </div>
     </Container>
   );
 }
+
+const float = keyframes`
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+`;
+
 const Container = styled.div`
-  background-size: cover;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr;
+  min-height: 100vh;
+  display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  background-color: #262626;
-  @media ${Device.tablet} {
-    grid-template-columns: 1fr 2fr;
-  }
-  .contentLogo {
+  background: linear-gradient(135deg, #0B1120 0%, #1A2335 50%, #0B1120 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+
+  .bg-shapes {
     position: absolute;
-    top: 15px;
-    font-weight: 700;
-    display: flex;
-    left: 15px;
-    align-items: center;
-    color: #fff;
-
-    img {
-      width: 50px;
-    }
-  }
-  .cuadros {
-    transition: cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    bottom: 0;
-    transition: 0.6s;
-  }
-
-  .bannerlateral {
-    background-color: #fc6b32;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      width: 80%;
-    }
-  }
-  .contentCard {
-    grid-column: 2;
-    background-color: #ffffff;
-    background-size: cover;
-    z-index: 100;
-    position: relative;
-    gap: 30px;
-    display: flex;
-    padding: 20px;
-    box-shadow: 8px 5px 18px 3px rgba(0, 0, 0, 0.35);
-    justify-content: center;
-    width: auto;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    .card {
-      padding-top: 80px;
-      width: 100%;
-      @media ${Device.laptop} {
-        width: 50%;
-      }
-    }
-    .version {
-      color: #727272;
-      text-align: start;
-    }
-    .contentImg {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-
-      img {
-        width: 40%;
-
-        animation: flotar 1.5s ease-in-out infinite alternate;
-      }
-    }
-    .frase {
-      color: #fc6c32;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 30px;
-    }
-    .ayuda {
+    inset: 0;
+    pointer-events: none;
+    .shape {
       position: absolute;
-      top: 15px;
-      right: 15px;
-      color: #8d8d8d;
-      font-size: 15px;
-      font-weight: 500;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
     }
-    &:hover {
-      .contentsvg {
-        top: -100px;
-        opacity: 1;
-      }
-      .cuadros {
-        transform: rotate(37deg) rotateX(5deg) rotateY(12deg) rotate(3deg)
-          skew(2deg) skewY(1deg) scaleX(1.2) scaleY(1.2);
-        color: red;
+    .shape-1 {
+      width: 400px;
+      height: 400px;
+      background: #4F8CFF;
+      top: -100px;
+      right: -100px;
+      animation: ${float} 6s ease-in-out infinite;
+    }
+    .shape-2 {
+      width: 300px;
+      height: 300px;
+      background: #6C63FF;
+      bottom: -50px;
+      left: -50px;
+      animation: ${float} 8s ease-in-out infinite reverse;
+    }
+    .shape-3 {
+      width: 200px;
+      height: 200px;
+      background: #00C48A;
+      top: 40%;
+      left: 10%;
+      animation: ${float} 7s ease-in-out infinite 1s;
+    }
+    .shape-4 {
+      width: 250px;
+      height: 250px;
+      background: #4F8CFF;
+      bottom: 20%;
+      right: 15%;
+      animation: ${float} 9s ease-in-out infinite 0.5s;
+    }
+  }
+
+  .login-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 440px;
+  }
+`;
+
+const Card = styled.div`
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px 36px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(79, 140, 255, 0.1);
+  animation: fadeUp 0.5s ease;
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    text-align: center;
+    margin-bottom: 32px;
+    img {
+      width: 64px;
+      margin: 0 auto 16px;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+    p {
+      color: #64748B;
+      font-size: 0.9rem;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    align-items: stretch;
+    button, .btn {
+      width: 100%;
+    }
+    .btn-link {
+      background: none;
+      border: none;
+      color: #4F8CFF;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 8px;
+      transition: opacity 0.2s;
+      &:hover {
+        opacity: 0.8;
+        text-decoration: underline;
       }
     }
   }
-  @keyframes flotar {
-    0% {
-      transform: translate(0, 0px);
-    }
-    50% {
-      transform: translate(0, 15px);
-    }
-    100% {
-      transform: translate(0, -0px);
+
+  .card-footer-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #E2E8F0;
+    color: #94A3B8;
+    font-size: 0.8rem;
+    svg {
+      font-size: 1rem;
+      min-width: 16px;
     }
   }
 `;
-const Titulo = styled.span`
-  font-size: 3rem;
-  font-weight: 700;
-`;
-const ContainerBtn = styled.div`
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-`;
-const TextoStateInicio = styled.p`
-  color: #fc7575;
+
+const ErrorMsg = styled.div`
+  background: #FEE2E2;
+  color: #DC2626;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 16px;
 `;

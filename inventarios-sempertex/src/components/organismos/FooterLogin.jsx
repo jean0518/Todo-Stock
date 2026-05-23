@@ -7,15 +7,14 @@ export function FooterLogin() {
         <GiPadlock />
         <span>
           Esta es una página segura de codigo369. Si tienes dudas sobre la
-          autenticidad de la web, comunícate con
-          <br /> nosotros al 311-9898 o a través de nuestros medios digitales.
+          autenticidad de la web, comunícate con nosotros al 311-9898.
         </span>
       </section>
       <section className="derechos">
         <span>StockPRO S.A - RUC: 20100047218</span>
-        <div className="separador"></div>
+        <span className="separador">|</span>
         <span>Todos los derechos reservados</span>
-        <div className="separador"></div>
+        <span className="separador">|</span>
         <span>© 2023 codigo369.com</span>
       </section>
     </Container>
@@ -24,28 +23,28 @@ export function FooterLogin() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 12.2px;
-  color: #91a4b7;
-  gap:5px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  gap: 6px;
+  text-align: center;
+  width: 100%;
+
   .lock {
-    border-bottom: 1px solid rgba(145, 164, 183,0.3);
-    gap:5px;
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .derechos {
     display: flex;
-    justify-content: space-between;
-   .separador{
-    width:1px;
-    background-color:rgba(145, 164, 183,0.3);
-    margin-top:4px;
-    height:80%;
-    align-items:center;
-    display:flex;
-   }
-    span{
-      margin-top:5px;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    .separador {
+      opacity: 0.4;
     }
   }
 `;

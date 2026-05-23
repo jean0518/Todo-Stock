@@ -1,92 +1,51 @@
 import styled from "styled-components";
-import { BtnCircular, UserAuth, _v,ListaMenuDesplegable,DesplegableUser, useAuthStore } from "../../index";
-import { useNavigate } from "react-router-dom";
-export function Header({ stateConfig }) {
-  const {signOut} = useAuthStore();
-  const navigate = useNavigate();
+import { UserAuth, _v } from "../../index";
+
+export function Header() {
   const { user } = UserAuth();
-  const handleCerrarSesion = async (p) => {
-        if(p.tipo === "cerrarsesion"){
-          const success = await signOut();
-          if (success) {
-              navigate('/login', { replace: true });
-          }
-        }
-    };
+
   return (
     <Container>
-      
-      <Datauser onClick={stateConfig.setState}>
-        <div className="imgContainer">
-          <img src="https://i.ibb.co/kGYgRZ8/programador.png" />
+      <div className="header-brand">
+        <img src={_v.logo} alt="logo" />
+        <div className="brand-info">
+          <strong>Inventario TI</strong>
+          <span>{user?.email || "Usuario"}</span>
         </div>
-        <BtnCircular
-          icono={<_v.iconocorona />}
-          width="25px"
-          height="25px"
-          bgcolor={`linear-gradient(15deg, rgba(255, 88, 58, 0.86) 9%, #f8bf5b 100%);`}
-          textcolor="#ffffff"
-          fontsize="11px"
-          translatex="-50px"
-          translatey="-12px"
-        />
-        <span className="nombre">{user.email}</span>
-        {stateConfig.state && (
-        <ListaMenuDesplegable
-          data={DesplegableUser}
-          top="62px"
-          funcion={(p) => handleCerrarSesion(p)}
-        />
-      )}
-      </Datauser>
+      </div>
     </Container>
   );
 }
+
 const Container = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  position: relative;
-  justify-content: end;
-`;
-const Datauser = styled.div`
-  z-index: 10;
-  position: relative;
-  top: 0;
-  right: 0;
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  border-radius: 50px;
-  margin: 15px;
-  cursor: pointer;
-  .imgContainer {
-    height: 40px;
-    width: 40px;
-    min-height: 40px;
-    min-width: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 22px;
+  justify-content: space-between;
+
+  .header-brand {
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 12px;
     img {
-      width: 100%;
-      object-fit: cover;
+      width: 32px;
+      height: auto;
     }
-  }
-  &:hover {
-    background-color: ${({ theme }) => theme.bg3};
-  }
-  .nombre {
-    width: 100%;
-    font-weight: 500;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+      strong {
+        font-size: 1rem;
+        color: ${({ theme }) => theme.text};
+      }
+      span {
+        font-size: 0.75rem;
+        color: ${({ theme }) => theme.colorSubtitle};
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
 `;

@@ -105,15 +105,15 @@ const Container = styled.div`
   left: 0;
   border-radius: 20px;
   background: #fff;
-  box-shadow: -10px 15px 30px rgba(10, 9, 9, 0.4);
-  padding: 13px 36px 20px 36px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  padding: 24px 36px 20px 36px;
   z-index: 100;
-  display:flex;
+  display: flex;
+  align-items: center;
 
-  align-items:center;
-.subcontainer{
-  width: 100%;
-}
+  .subcontainer {
+    width: 100%;
+  }
 
   .headers {
     display: flex;
@@ -122,18 +122,22 @@ const Container = styled.div`
     margin-bottom: 20px;
 
     h1 {
-      font-size: 20px;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #1E293B;
     }
     span {
-      font-size: 20px;
+      font-size: 24px;
       cursor: pointer;
+      color: #94A3B8;
+      transition: color 0.2s;
+      &:hover { color: #DC2626; }
     }
-   
   }
+
   .formulario {
     section {
-      gap: 20px;
+      gap: 16px;
       display: flex;
       flex-direction: column;
       .colorContainer {
@@ -143,6 +147,10 @@ const Container = styled.div`
         }
       }
     }
+  }
+
+  .btnguardarContent {
+    margin-top: 8px;
   }
 `;
 

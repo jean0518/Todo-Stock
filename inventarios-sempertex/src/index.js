@@ -46,6 +46,7 @@ export * from './components/organismos/tablas/TablaProductos';
 export * from './components/organismos/tablas/TablaUsuarios';
 export * from './components/organismos/Tabs';
 export * from './components/organismos/ToggleTema';
+export * from './components/organismos/TopNav';
 export * from './components/templates/CategoriasTemplate';
 export * from './components/templates/ConfiguracionTemplate';
 export * from './components/templates/HomeTemplate';
