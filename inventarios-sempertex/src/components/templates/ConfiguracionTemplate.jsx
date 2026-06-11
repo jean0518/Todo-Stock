@@ -6,165 +6,114 @@ import { Mensaje } from "../moleculas/Mensaje";
 export function ConfiguracionTemplate() {
   return (
     <Container>
-      <div id="cards">
-        {DataModulosConfiguracion.map((item, index) => {
-          return (
-            <Link to={item.state ? item.link : ""} className={item.state ? "card" : "card false"} key={index}>
-              <Mensaje state={item.state} />
-              <div className="card-content">
-                <div className="card-image">
-                  <img src={item.icono} />
-                </div>
-                <div className="card-info-wrapper">
-                  <div className="card-info">
-                    <div className="card-info-title">
-                      <h3>{item.title}</h3>
-                      <h4>{item.subtitle}</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+      <Grid>
+        {DataModulosConfiguracion.map((item, index) => (
+          <Card to={item.state ? item.link : ""} className={item.state ? "" : "disabled"} key={index}>
+            <Mensaje state={item.state} />
+            <CardContent>
+              <CardImage>
+                <img src={item.icono} />
+              </CardImage>
+              <CardInfo>
+                <Title>{item.title}</Title>
+                <Subtitle>{item.subtitle}</Subtitle>
+              </CardInfo>
+            </CardContent>
+          </Card>
+        ))}
+      </Grid>
     </Container>
   );
 }
+
 const Container = styled.div`
   padding: 24px 0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   min-height: calc(100vh - 112px);
+`;
 
-  #cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    max-width: 916px;
-    width: 100%;
-    justify-content: center;
+const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 1024px;
+  width: 100%;
+  align-content: center;
+`;
+
+const Card = styled(Link)`
+  flex: 0 0 320px;
+  height: 280px;
+  background: ${({ theme }) => theme.bgcards};
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid ${({ theme }) => theme.bg4};
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.primary};
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(79, 140, 255, 0.15);
+    img { filter: grayscale(0); transform: scale(1.1); }
   }
 
-  #cards:hover > .card::after {
-    opacity: 1;
-  }
-
-  .card {
-    background: ${({ theme }) => theme.bgcards};
-    border-radius: 16px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 280px;
-    height: 240px;
-    transition: all 0.3s ease;
-    border: 1px solid ${({ theme }) => theme.bg4};
-    overflow: hidden;
-
+  &.disabled {
     &:hover {
-      border-color: ${({ theme }) => theme.primary};
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(79, 140, 255, 0.15);
-      .card-image img {
-        filter: grayscale(0);
-        transform: scale(1.1);
-      }
-    }
-
-    &.false {
-      border-color: ${({ theme }) => theme.bg4};
-      &:hover {
-        border-color: #FF6B6B;
-        box-shadow: 0 12px 40px rgba(255, 107, 107, 0.15);
-      }
+      border-color: #FF6B6B;
+      box-shadow: 0 12px 40px rgba(255, 107, 107, 0.15);
     }
   }
+`;
 
-  .card::after {
-    border-radius: inherit;
-    content: "";
+const CardContent = styled.div`
+  background: ${({ theme }) => theme.bgcards};
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 16px;
+  position: relative;
+  z-index: 2;
+`;
+
+const CardImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45%;
+  img {
     height: 100%;
-    left: 0px;
-    opacity: 0;
-    position: absolute;
-    top: 0px;
-    transition: opacity 500ms;
-    width: 100%;
-    background: radial-gradient(
-      600px circle at var(--mouse-x) var(--mouse-y),
-      rgba(79, 140, 255, 0.15),
-      transparent 40%
-    );
-    z-index: 1;
-    pointer-events: none;
+    transition: all 0.3s;
+    filter: grayscale(60%);
   }
+`;
 
-  .card > .card-content {
-    background: ${({ theme }) => theme.bgcards};
-    border-radius: inherit;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: 16px;
-    position: relative;
-    z-index: 2;
-  }
+const CardInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 0 12px;
+  text-align: center;
+`;
 
-  h3, h4 {
-    color: ${({ theme }) => theme.colorsubtitlecard};
-    font-weight: 600;
-    margin: 0;
-  }
+const Title = styled.h3`
+  color: ${({ theme }) => theme.colorsubtitlecard};
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 600;
+`;
 
-  .card-image {
-    align-items: center;
-    display: flex;
-    height: 120px;
-    justify-content: center;
-    img {
-      transition: all 0.3s;
-      height: 70%;
-      filter: grayscale(60%);
-    }
-  }
-
-  .card-info-wrapper {
-    align-items: center;
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-start;
-    padding: 0 12px;
-  }
-
-  .card-info-title > h3 {
-    font-size: 1.05rem;
-    line-height: 1.3;
-  }
-
-  .card-info-title > h4 {
-    color: ${({ theme }) => theme.colorSubtitle};
-    font-size: 0.8rem;
-    margin-top: 4px;
-    font-weight: 400;
-  }
-
-  @media (max-width: 600px) {
-    .card {
-      width: calc(50% - 6px);
-      height: 200px;
-    }
-    .card-image {
-      height: 80px;
-    }
-  }
-
-  @media (max-width: 400px) {
-    .card {
-      width: 100%;
-      height: 180px;
-    }
-  }
+const Subtitle = styled.h4`
+  color: ${({ theme }) => theme.colorSubtitle};
+  font-size: 0.8rem;
+  margin: 4px 0 0;
+  font-weight: 400;
 `;

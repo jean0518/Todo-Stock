@@ -17,6 +17,10 @@ export function TopNav() {
     if (success) navigate("/login", { replace: true });
   };
 
+  const handleConfig = () => {
+    navigate("/configurar", { replace: true });
+  }
+
   return (
     <Nav>
       <div className="nav-inner">
@@ -68,6 +72,7 @@ export function TopNav() {
                     onClick={() => {
                       setUserOpen(false);
                       if (item.tipo === "cerrarsesion") handleLogout();
+                      if (item.tipo === "configuracion") handleConfig();
                     }}
                   >
                     <span className="dropdown-icon">{item.icono}</span>

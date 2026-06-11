@@ -3,7 +3,7 @@ import { Btnsave, _v, useAuthStore, InputText, FooterLogin } from "../../index";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import logo from "../../assets/inventarioslogo.png";
+import logo from "../../assets/inventario.png";
 import { MdOutlineInfo } from "react-icons/md";
 import { ThemeContext } from "../../App";
 import { RegistrarAdmin } from "../organismos/formularios/RegistrarAdmin";

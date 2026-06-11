@@ -115,10 +115,9 @@ function StockActualPorProducto() {
     )
 }
 const Container = styled.div`
-width: 100%;
-height: 90vh;
-display: flex;
-flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 const BuscadorContainer = styled.div`
 position: relative;
@@ -150,11 +149,9 @@ div[class*="Container"] {
     }
 `;
 const PDFViewerContainer = styled.div`
-width: 100%;
-flex: 1;
-overflow: auto; 
-    
-    .pdfviewer {
+ width: 100%;
+height: 90vh;
+    .pdfviewer{
         width: 100%;
         height: 100%;
     }

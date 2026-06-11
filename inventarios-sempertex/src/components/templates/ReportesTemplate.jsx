@@ -1,6 +1,8 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, Navigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 export function ReportesTemplate() {
+  const { pathname } = useLocation();
+  if (pathname === "/reportes") return <Navigate to="Stock-actual-todos" replace />;
   return (
     <Container>
       <PageContainer>
@@ -10,8 +12,8 @@ export function ReportesTemplate() {
         <Sidebar>
           <SidebarSection>
             <SidebarTitle>Stock Actual:</SidebarTitle>
-            <SidebarItem to="Stock-actual-por-producto">Por producto</SidebarItem>
             <SidebarItem to="Stock-actual-todos">Todos</SidebarItem>
+            <SidebarItem to="Stock-actual-por-producto">Por producto</SidebarItem>
           </SidebarSection>
         </Sidebar>
       </PageContainer>

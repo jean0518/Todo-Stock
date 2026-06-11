@@ -13,7 +13,7 @@ export function BannerEmpresa() {
           {dataempresa?.nombre || "Mi empresa"}
         </span>
         <div className="context-text">
-          Asegura tus elementos con Sempertex
+          Organiza y asegura todos tus productos en un solo lugar. Controla tu inventario de forma facil y eficiente.
         </div>
         <ContentCards>
           <CardDatosEmpresa

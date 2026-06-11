@@ -4,7 +4,7 @@ export function HomeTemplate() {
   return (
     <Container>
       <section className="area1">
-        <Title>Tu empresa</Title>
+          <Title>Tu empresa</Title>
       </section>
       <section className="main">
         <BannerEmpresa />
