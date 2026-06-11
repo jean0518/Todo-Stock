@@ -1,35 +1,29 @@
 import styled from "styled-components";
-export function Btnfiltro({ bgcolor, textcolor, icono, funcion}){
-    return (<Container $textcolor={textcolor} $bgcolor={bgcolor} onClick={funcion}>
-        <div className="contentIcon">
-            <span>{icono}</span>
-        </div>
-    </Container>)
+export function Btnfiltro({ bgcolor, textcolor, icono, funcion }) {
+  return (
+    <Container $textcolor={textcolor} $bgcolor={bgcolor} onClick={funcion}>
+      <span>{icono}</span>
+    </Container>
+  )
 }
 const Container = styled.div`
-    min-width: 50px;
-    min-height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #f0f0f0, #cacaca);
-    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-    color: ${(props) => props.$textcolor};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    position: relative;
-    cursor: pointer;
-    .contentIcon{
-        position: absolute;
-        top: 25%;
-        bottom: 25%;
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        transition: 0.2s;
-        &:hover{
-            transform: scale(1.3);
-        }
-    }
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: ${(props) => props.$bgcolor || props.theme.primary};
+  color: ${(props) => props.$textcolor || "#fff"};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(79, 140, 255, 0.25);
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(79, 140, 255, 0.35);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 `

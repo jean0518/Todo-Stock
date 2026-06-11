@@ -1,61 +1,64 @@
 import styled from 'styled-components';
 import { _v } from '../../../index';
-export function Paginacion({table, pagina, maximo, irinicio}) {
-    return (
-        <Container>
-            <button onClick={() => irinicio()}
-                disabled={!table.getCanPreviousPage()}
-                >
-                <span className='icono'>{<_v.iconotodos/>}</span>
-            </button>
-            <button disabled={!table.getCanPreviousPage()} 
-                onClick={()=>table.previousPage()}>
-                <span className='icono izquierda'>{<_v.iconoflechaderecha/>}</span>
-            </button>
-            <span>{pagina}</span>
-            <p> de {maximo}</p>
-            <button disabled={!table.getCanNextPage()}
-                onClick={()=>table.nextPage()}
-            >
-                <span className='icono'>{<_v.iconoflechaderecha/>}</span>
-            </button>
-        </Container>
-    )
+export function Paginacion({ table, pagina, maximo, irinicio }) {
+  return (
+    <Container>
+      <button onClick={() => irinicio()} disabled={!table.getCanPreviousPage()}>
+        <span className='icono'>{<_v.iconotodos />}</span>
+      </button>
+      <button disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
+        <span className='icono izquierda'>{<_v.iconoflechaderecha />}</span>
+      </button>
+      <span className="page-num">{pagina}</span>
+      <p className="page-total">de {maximo}</p>
+      <button disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
+        <span className='icono'>{<_v.iconoflechaderecha />}</span>
+      </button>
+    </Container>
+  )
 }
 const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  button {
+    background: ${({ theme }) => theme.primary};
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    height: 32px;
+    width: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    button{
-        background-color: #FF7800;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 3px;
-        height: 30px;
-        width: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        text-align: center;
-        transition: .3s;
-        &:hover{
-            box-shadow: 0px 10px 15px -3px #FF7800;
-        }
-        .icono{
-            color: #fff;
-            
-            &.izquierda{
-                transform: rotate(180deg);
-            }
-        }
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover:not([disabled]) {
+      opacity: 0.85;
+      transform: scale(1.05);
     }
-    button[disabled]{
-        background-color: #646464;
-        cursor: no-drop;
-        box-shadow: none;
+    .icono {
+      color: #fff;
+      font-size: 0.9rem;
+      display: flex;
+      &.izquierda {
+        transform: rotate(180deg);
+      }
     }
+  }
+  button[disabled] {
+    background: ${({ theme }) => theme.bg4};
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .page-num {
+    font-weight: 600;
+    color: ${({ theme }) => theme.text};
+    font-size: 0.9rem;
+  }
+  .page-total {
+    color: ${({ theme }) => theme.colorSubtitle};
+    font-size: 0.85rem;
+  }
 `

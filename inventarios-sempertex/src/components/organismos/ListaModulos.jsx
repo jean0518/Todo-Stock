@@ -60,38 +60,32 @@ export function ListaModulos({checkboxs, setCheckBoxs, accion}) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px;
-  width: 80%;
-  border: 2px dashed #414244;
-  border-radius: 15px;
-  padding: 20px;
+  gap: 6px;
+  width: 100%;
+  border: 2px dashed ${({ theme }) => theme.bg4};
+  border-radius: 12px;
+  padding: 16px;
 
   > div {
-    padding: 10px;
-    border-radius: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.15s;
   }
 
   > div:hover {
-    background: #f5f5f5;
-    color: #1a1a1a;
+    background: ${({ theme }) => theme.bgAlpha};
   }
 
-  /* 🔥 CHECKBOX MÁS PEQUEÑO */
   .container {
     display: flex;
     align-items: center;
     position: relative;
     cursor: pointer;
-
-    /* 👇 reducimos tamaño general */
-    font-size: clamp(14px, 1.5vw, 18px);
-
+    font-size: 0.9rem;
     user-select: none;
-    vertical-align: middle;
     gap: 10px;
+    color: ${({ theme }) => theme.text};
   }
 
   .container input {
@@ -109,96 +103,59 @@ const Container = styled.div`
   .container .checkmark {
     position: relative;
     flex-shrink: 0;
-    height: 1.5em;
-    width: 1.5em;
-    background-color: #fdfcf0;
-    border: 3px solid #1a1a1a; /* 👈 un poco más delgado */
-    border-radius: 8% 92% 12% 88% / 87% 11% 89% 13%;
-    box-shadow: 4px 4px 0px #1a1a1a; /* 👈 proporcional */
-    transition:
-      transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      box-shadow 0.2s;
+    height: 1.3em;
+    width: 1.3em;
+    background: ${({ theme }) => theme.bg};
+    border: 2px solid ${({ theme }) => theme.bg4};
+    border-radius: 6px;
+    transition: all 0.2s;
   }
 
   .container:hover .checkmark {
-    transform: scale(1.05) rotate(2deg);
+    border-color: ${({ theme }) => theme.primary};
   }
 
   .container input:checked ~ .checkmark {
-    background-color: #ff5722;
-    border-radius: 92% 8% 88% 12% / 11% 87% 13% 89%;
-    transform: scale(1.1) rotate(-2deg);
+    background: ${({ theme }) => theme.primary};
+    border-color: ${({ theme }) => theme.primary};
   }
 
   .container .checkmark:after {
     content: "";
     position: absolute;
     display: none;
-    left: 0.36em;
-    top: 0.09em;
-    width: 0.3em;
-    height: 0.7em;
+    left: 50%;
+    top: 45%;
+    width: 0.25em;
+    height: 0.5em;
     transform: translate(-50%, -50%) rotate(40deg);
-    border: solid #1a1a1a;
-    border-width: 0 0.2em 0.2em 0;
-    border-radius: 2px;
+    border: solid #fff;
+    border-width: 0 0.15em 0.15em 0;
+    border-radius: 1px;
   }
 
   .container input:checked ~ .checkmark:after {
     display: block;
-    animation: splash 0.3s forwards;
   }
 
-  .container:active .checkmark {
-    transform: scale(0.9) translateY(4px);
-    box-shadow: 0px 0px 0px #1a1a1a;
-  }
-
-  @keyframes splash {
-    0% {
-      transform: scale(0) rotate(40deg);
-      opacity: 0;
-    }
-    70% {
-      transform: scale(1.2) rotate(40deg);
-    }
-    100% {
-      transform: scale(1) rotate(40deg);
-      opacity: 1;
-    }
-  }
-
-  /* 🔥 TEXTO CORREGIDO (YA NO SE MONTA) */
   span {
     display: inline-block;
     vertical-align: middle;
-    font-size: clamp(0.85rem, 1vw, 1rem);
-    line-height: 1.2;
+    font-size: 0.9rem;
+    line-height: 1.3;
     max-width: 100%;
-
-    /* 🖥️ DESKTOP */
-    white-space: nowrap;        /* una sola línea */
-    text-overflow: ellipsis;  
+    white-space: nowrap;
+    text-overflow: ellipsis;
     overflow: hidden;
   }
 
-  /* 📱 MOBILE */
   @media (max-width: 600px) {
-    > div {
-      padding: 8px;
-    }
-
+    > div { padding: 6px 8px; }
     span {
-      font-size: 0.85rem;
-        /* 🔥 cambia comportamiento */
-        white-space: normal;
-
-        display: -webkit-box;
-        -webkit-line-clamp: 2;     /* máximo 2 líneas */
-        -webkit-box-orient: vertical;
-
-        line-height: 1.3;
-        
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
   }
 `;

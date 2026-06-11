@@ -264,57 +264,58 @@ export function RegistrarUsuarios({ onClose, dataSelect, accion }) {
   );
 }
 const Container = styled.div`
-  transition: 0.5s;
   top: 0;
   left: 0;
   position: fixed;
-  background-color: rgba(10, 9, 9, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   display: flex;
   width: 100%;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
   z-index: 1000;
- 
+
   .form__field {
     font-family: inherit;
     width: 100%;
     border: none;
-    border-bottom: 2px solid #9b9b9b;
+    border-bottom: 2px solid #CBD5E1;
     outline: 0;
-    font-size: 17px;
-    color: ${(props)=>props.theme.text};
+    font-size: 0.95rem;
+    color: ${({ theme }) => theme.text};
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
-    &.disabled{
-      color: #696969;
-      background: #2d2d2d;
-      border-radius:8px;
-      margin-top:8px;
-      border-bottom: 1px dashed #656565;
 
+    &.disabled {
+      color: ${({ theme }) => theme.colorSubtitle};
+      background: ${({ theme }) => theme.bg2};
+      border-radius: 8px;
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px dashed ${({ theme }) => theme.bg4};
     }
   }
-   
+
   .sub-contenedor {
-    width: 100%;
-    max-width: 90%;
-    max-width: 85%;
+    width: 720px;
+    max-width: 92%;
     border-radius: 20px;
-    background: ${({ theme }) => theme.bgtotal};
-    box-shadow: -10px 15px 30px rgba(10, 9, 9, 0.4);
-    padding: 13px 36px 20px 36px;
+    background: ${({ theme }) => theme.bg};
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 24px 32px 28px;
     z-index: 100;
-    height: 90vh;
+    max-height: 90vh;
     overflow-y: auto;
     overflow-x: hidden;
-    &::-webkit-scrollbar{
+    border: 1px solid ${({ theme }) => theme.bg4};
+    &::-webkit-scrollbar {
       width: 6px;
       border-radius: 10px;
     }
-    &::-webkit-scrollbar-thumb{
-      background-color: #484848;
+    &::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.colorScroll};
       border-radius: 10px;
     }
 
@@ -322,34 +323,40 @@ const Container = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
 
       h1 {
-        font-size: 20px;
-        font-weight: 500;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: ${({ theme }) => theme.colortitlecard};
       }
       span {
-        font-size: 20px;
+        font-size: 24px;
         cursor: pointer;
+        color: ${({ theme }) => theme.colorSubtitle};
+        transition: color 0.2s;
+        line-height: 1;
+        &:hover { color: #DC2626; }
       }
     }
+
     .formulario {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 15px;
-      @media ${Device.tablet}{
+      gap: 16px;
+      @media ${Device.tablet} {
         grid-template-columns: repeat(2, 1fr);
       }
       section {
-        gap: 20px;
+        gap: 16px;
         display: flex;
         flex-direction: column;
       }
-      .btnguardarContent{
+      .btnguardarContent {
         display: flex;
         justify-content: end;
         grid-column: 1;
-        @media ${Device.tablet}{
+        @media ${Device.tablet} {
           grid-column: 2;
         }
       }

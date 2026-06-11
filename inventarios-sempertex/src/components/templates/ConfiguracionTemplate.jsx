@@ -1,259 +1,119 @@
 import styled from "styled-components";
-/* import fondocuadros from "../../assets/fondocuadros.svg"; */
 import { Link } from "react-router-dom";
 import { DataModulosConfiguracion } from "../../utils/dataEstatica";
 import { Mensaje } from "../moleculas/Mensaje";
 
-export function ConfiguracionTemplate() {  
+export function ConfiguracionTemplate() {
   return (
     <Container>
-      
-      <div id="cards">
-        {DataModulosConfiguracion.map((item, index) => {
-          return (
-            <Link to={item.state?item.link:""} className={item.state?"card": "card false"} key={index}>
-
-              <Mensaje state={item.state}/>            
-              <div className="card-content">
-                <div className="card-image">
-                  <img src={item.icono} />
-                </div>
-       
-
-                <div className="card-info-wrapper">
-                  <div className="card-info">
-                    <i className="fa-duotone fa-unicorn"></i>
-                    <div className="card-info-title">
-                      <h3>{item.title}</h3>
-                      <h4>{item.subtitle}</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+      <Grid>
+        {DataModulosConfiguracion.map((item, index) => (
+          <Card to={item.state ? item.link : ""} className={item.state ? "" : "disabled"} key={index}>
+            <Mensaje state={item.state} />
+            <CardContent>
+              <CardImage>
+                <img src={item.icono} />
+              </CardImage>
+              <CardInfo>
+                <Title>{item.title}</Title>
+                <Subtitle>{item.subtitle}</Subtitle>
+              </CardInfo>
+            </CardContent>
+          </Card>
+        ))}
+      </Grid>
     </Container>
   );
 }
+
 const Container = styled.div`
-  --bg-color: rgb(20, 20, 20);
-  --card-color: rgb(23, 23, 23);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat, repeat;
-  align-items: center;
-  background-color: ${({ theme }) => theme.bgtotal};
+  padding: 24px 0;
   display: flex;
-  height: 100vh;
   justify-content: center;
-  overflow-y: auto;
-  overflow-x: hidden;
-  &::-webkit-scrollbar {
-    width: 6px;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #484848;
-    border-radius: 10px;
-  }
-  #cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    max-width: 916px;
-    width: calc(100% - 20px);
+  min-height: calc(100vh - 112px);
+`;
+
+const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 1024px;
+  width: 100%;
+  align-content: center;
+`;
+
+const Card = styled(Link)`
+  flex: 0 0 320px;
+  height: 280px;
+  background: ${({ theme }) => theme.bgcards};
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid ${({ theme }) => theme.bg4};
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.primary};
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(79, 140, 255, 0.15);
+    img { filter: grayscale(0); transform: scale(1.1); }
   }
 
-  #cards:hover > .card::after {
-    opacity: 1;
-  }
-
-  .card {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    height: 260px;
-    flex-direction: column;
-    position: relative;
-    width: 300px;
-    transition: 0.3s;
-    border: 0.5px solid transparent;
+  &.disabled {
     &:hover {
-      border: 1px solid ${(props) => props.theme.bg5};
-      .card-image {
-        img {
-          filter: grayscale(0);
-        }
-      }
-    }
-    &.false{
-      &:hover {
-      border: 1px solid red;
-      .card-image {
-        img {
-          filter: grayscale(0);
-        }
-      }
-    }
+      border-color: #FF6B6B;
+      box-shadow: 0 12px 40px rgba(255, 107, 107, 0.15);
     }
   }
+`;
 
-  .card:hover::before {
-    opacity: 1;
-  }
+const CardContent = styled.div`
+  background: ${({ theme }) => theme.bgcards};
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 16px;
+  position: relative;
+  z-index: 2;
+`;
 
-  .card::before,
-  .card::after {
-    border-radius: inherit;
-    content: "";
+const CardImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45%;
+  img {
     height: 100%;
-    left: 0px;
-    opacity: 0;
-    position: absolute;
-    top: 0px;
-    transition: opacity 500ms;
-    width: 100%;
+    transition: all 0.3s;
+    filter: grayscale(60%);
   }
+`;
 
-  .card::before {
-    z-index: 3;
-  }
+const CardInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 0 12px;
+  text-align: center;
+`;
 
-  .card::after {
-    background: radial-gradient(
-      600px circle at var(--mouse-x) var(--mouse-y),
-      rgba(255, 255, 255, 0.4),
-      transparent 40%
-    );
-    z-index: 1;
-  }
+const Title = styled.h3`
+  color: ${({ theme }) => theme.colorsubtitlecard};
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 600;
+`;
 
-  .card > .card-content {
-    background-color: ${({ theme }) => theme.bgcards};
-    border-radius: inherit;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    inset: 1px;
-    padding: 10px;
-    position: absolute;
-    z-index: 2;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  span {
-    color: ${({ theme }) => theme.colorsubtitlecard};
-    font-family: "Rubik", sans-serif;
-    font-weight: 600;
-    margin: 0px;
-  }
-
-  i {
-    color: ${({ theme }) => theme.colorsubtitlecard};
-  }
-
-  .card-image {
-    align-items: center;
-    display: flex;
-    height: 140px;
-    justify-content: center;
-
-    img {
-      transition: 0.3s;
-      height: 70%;
-      filter: grayscale(100%);
-    }
-  }
-
-  .card-info-wrapper {
-    align-items: center;
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-start;
-    padding: 0px 20px;
-  }
-
-  .card-info {
-    align-items: flex-start;
-    display: flex;
-    gap: 10px;
-  }
-
-  .card-info > i {
-    font-size: 1em;
-    height: 20px;
-    line-height: 20px;
-  }
-
-  .card-info-title > h3 {
-    font-size: 1.1em;
-    line-height: 20px;
-  }
-
-  .card-info-title > h4 {
-    color: ${({ theme }) => theme.colortitlecard};
-    font-size: 0.85em;
-    margin-top: 8px;
-    font-weight: 500;
-  }
-
-  @media (max-width: 1000px) {
-    body {
-      align-items: flex-start;
-      overflow: auto;
-    }
-
-    #cards {
-      max-width: 1000px;
-      padding: 10px 0px;
-    }
-
-    .card {
-      flex-shrink: 1;
-      width: calc(50% - 4px);
-    }
-  }
-
-  @media (max-width: 500px) {
-    .card {
-      height: 180px;
-    }
-
-    .card-image {
-      height: 80px;
-    }
-
-    .card-info-wrapper {
-      padding: 0px 10px;
-    }
-
-    .card-info > i {
-      font-size: 0.8em;
-    }
-
-    .card-info-title > h3 {
-      font-size: 0.9em;
-    }
-
-    .card-info-title > h4 {
-      font-size: 0.8em;
-      margin-top: 4px;
-    }
-  }
-
-  @media (max-width: 320px) {
-    .card {
-      width: 100%;
-    }
-  }
-
-  #youtube-link {
-    bottom: 10px;
-  }
+const Subtitle = styled.h4`
+  color: ${({ theme }) => theme.colorSubtitle};
+  font-size: 0.8rem;
+  margin: 4px 0 0;
+  font-weight: 400;
 `;

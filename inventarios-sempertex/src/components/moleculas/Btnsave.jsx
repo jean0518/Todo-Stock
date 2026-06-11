@@ -1,54 +1,44 @@
 import styled from "styled-components";
-import {Icono} from "../../index"
-export function Btnsave({ funcion, titulo, bgcolor, icono,url }) {
+import { Icono } from "../../index"
+export function Btnsave({ funcion, titulo, bgcolor, icono, url }) {
   return (
     <Container type="submit" $bgcolor={bgcolor}>
-   
-     <Icono>{icono}</Icono>
-     
-
+      {icono && <Icono>{icono}</Icono>}
       <span className="btn" onClick={funcion}>
-        <a href={url} target="_blank">
-           {titulo}
-        </a>
-       
+        {url ? <a href={url} target="_blank" rel="noreferrer">{titulo}</a> : titulo}
       </span>
     </Container>
   );
 }
 const Container = styled.button`
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
+  gap: 8px;
   border: none;
-  gap: 10px;
-  background-color:initial;
- z-index:2;
-  .btn{
-    background: ${(props)=>props.$bgcolor};
-    padding: 0.6em 1.3em;
-    font-weight: 900;
-    font-size: 18px;
-    border: 3px solid black;
-    border-radius: 0.4em;
-    box-shadow: 0.1em 0.1em #000;
-    transition: 0.2s;
-    white-space: 1px;
-    color: #000;
-    a{
-      text-decoration:none;
-      color: #000;
+  background: none;
+  cursor: pointer;
+
+  .btn {
+    background: ${(props) => props.$bgcolor || props.theme.primary};
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 10px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
-    cursor: pointer;
-    &:hover{
-      transform: translate(-0.05em, -0.05em);
-      box-shadow: 0.15em 0.15em #000;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
-    &:active{
-      transform: translate(0.05em, 0.05em);
-      box-shadow: 0.05em 0.05em #000;
+    &:active {
+      transform: translateY(0);
     }
   }
-  
 `;
