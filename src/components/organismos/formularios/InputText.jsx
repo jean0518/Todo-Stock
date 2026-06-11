@@ -3,8 +3,7 @@ import styled from "styled-components";
 export function InputText({ children, icono }) {
   return (
     <Container>
-      <span>{icono}</span>
-
+      <span className="input-icon">{icono}</span>
       <div className="form__group field">{children}</div>
     </Container>
   );
@@ -13,42 +12,46 @@ const Container = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  p {
-    color: #f46943;
+  gap: 12px;
+
+  .input-icon {
+    display: flex;
+    color: #94A3B8;
+    font-size: 1.2rem;
+    min-width: 20px;
   }
+
+  p, .field-error {
+    color: #DC2626;
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+
   .form__group {
     position: relative;
     padding: 20px 0 0;
     width: 100%;
   }
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: ${(props)=>props.theme.text};
-    transition: background-color 5000s ease-in-out 0s;
-    
-  }
+
   .form__field {
     font-family: inherit;
     width: 100%;
     border: none;
-    border-bottom: 2px solid #9b9b9b;
+    border-bottom: 2px solid #E2E8F0;
     outline: 0;
-    font-size: 17px;
-    color: ${(props)=>props.theme.text};
+    font-size: 0.95rem;
+    color: #1E293B;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
-    &.disabled{
-      color: #696969;
-      background: #2d2d2d;
-      border-radius:8px;
-      margin-top:8px;
-      border-bottom: 1px dashed #656565;
 
+    &.disabled {
+      color: #94A3B8;
+      background: #F1F5F9;
+      border-radius: 8px;
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px dashed #CBD5E1;
     }
   }
 
@@ -57,9 +60,10 @@ const Container = styled.div`
   }
 
   .form__field:placeholder-shown ~ .form__label {
-    font-size: 17px;
+    font-size: 0.95rem;
     cursor: text;
     top: 20px;
+    color: #94A3B8;
   }
 
   .form__label {
@@ -67,17 +71,15 @@ const Container = styled.div`
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 17px;
-    color: #9b9b9b;
+    font-size: 0.8rem;
+    color: #64748B;
     pointer-events: none;
+    font-weight: 500;
   }
 
   .form__field:focus {
     padding-bottom: 6px;
-    font-weight: 700;
-    border-width: 1px;
-    border-image: linear-gradient(to right, #ec580e, #f23505);
-    border-image-slice: 1;
+    border-bottom: 2px solid #4F8CFF;
   }
 
   .form__field:focus ~ .form__label {
@@ -85,15 +87,13 @@ const Container = styled.div`
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 17px;
-    color: #f9632c;
-    font-weight: 700;
+    font-size: 0.8rem;
+    color: #4F8CFF;
+    font-weight: 600;
   }
 
-  /* reset input */
   .form__field:required,
   .form__field:invalid {
     box-shadow: none;
   }
- 
 `;

@@ -133,81 +133,108 @@ export function TablaMarca({data, setOpenRegistro, setDataSelect, setAccion}) {
     );
 }
 const Container = styled.div`
-
-    width: 90%;
-    margin: 2rem auto;
+    width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    background: ${({ theme }) => theme.bg};
+    border-radius: 16px;
+    border: 1px solid ${({ theme }) => theme.bg4};
+    padding: 4px;
 
-    table{
+    table {
         width: 100%;
         border-collapse: collapse;
         min-width: 320px;
     }
 
-    thead{
-        background: ${({ theme }) => theme.bgSecondary};
+    thead {
+        background: ${({ theme }) => theme.bg2};
     }
-    th,
-    td{
-        padding: 0.75rem;
-        border-bottom: 1px solid rgba(150, 150, 150, 0.3);
+    th, td {
+        padding: 0.8rem 0.75rem;
+        border-bottom: 1px solid ${({ theme }) => theme.bg4};
         text-align: center;
     }
-    th{
+    th {
         font-weight: 600;
-        color: ${({theme}) => theme.text};
+        font-size: 0.85rem;
+        color: ${({ theme }) => theme.colorSubtitle};
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    td {
+        font-size: 0.9rem;
+        color: ${({ theme }) => theme.text};
+    }
+    tbody tr {
+        transition: background 0.15s;
+        &:hover {
+            background: ${({ theme }) => theme.bgAlpha};
+        }
+        &:last-child td {
+            border-bottom: none;
+        }
     }
 
-    .pagination{
-      display:flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 12px;
-      flex-wrap: wrap;
+    .pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        border-top: 1px solid ${({ theme }) => theme.bg4};
     }
-    .pagination .info{ display:flex; gap:8px; align-items:center; }
-    .pagination .controls{ display:flex; gap:8px; align-items:center; }
-    .pagination .btn{ display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:6px; border:1px solid rgba(0,0,0,0.08); background: ${({theme})=>theme.bg}; cursor:pointer; }
-    .pagination .btn[disabled]{ opacity: 0.5; cursor: not-allowed; }
-    .pagination .page{ font-weight: 600; }
+    .pagination .info { display: flex; gap: 8px; align-items: center; font-size: 0.85rem; color: ${({ theme }) => theme.colorSubtitle}; }
+    .pagination .controls { display: flex; gap: 6px; align-items: center; }
+    .pagination .btn {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid ${({ theme }) => theme.bg4};
+        background: ${({ theme }) => theme.bg};
+        color: ${({ theme }) => theme.text};
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.15s;
+        &:hover:not([disabled]) {
+            background: ${({ theme }) => theme.bgAlpha};
+            border-color: ${({ theme }) => theme.primary};
+        }
+    }
+    .pagination .btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+    .pagination .page { font-weight: 600; color: ${({ theme }) => theme.primary}; }
 
     @media (max-width: 768px) {
-        table,
-        thead,
-        tbody,
-        tr{
-            display: block;
-            width: 100%;
-        }
-
-        thead{
-            display: none;
-        }
-
-        tr{
-            background: ${({theme}) => theme.bgCard};
-            margin-bottom: 1rem;
+        table, thead, tbody, tr { display: block; width: 100%; }
+        thead { display: none; }
+        tr {
+            background: ${({ theme }) => theme.bg};
+            margin-bottom: 0.75rem;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            padding: 0.5rem 0;    
+            border: 1px solid ${({ theme }) => theme.bg4};
+            padding: 0.5rem 0;
         }
         td {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.6rem 1rem;
+            padding: 0.5rem 1rem;
             text-align: right;
             border: none;
+            border-bottom: 1px solid ${({ theme }) => theme.bg4};
+            &:last-child { border-bottom: none; }
         }
         td::before {
             content: attr(data-label);
             font-weight: 600;
-            color: ${({ theme }) => theme.text};
+            color: ${({ theme }) => theme.colorSubtitle};
             text-align: left;
+            font-size: 0.8rem;
         }
-        .pagination{ justify-content:center; }
-        .pagination .page{ display:none; }
+        .pagination { justify-content: center; }
+        .pagination .page { display: none; }
     }
 `;
