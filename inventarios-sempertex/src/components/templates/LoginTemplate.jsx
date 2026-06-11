@@ -7,13 +7,15 @@ import logo from "../../assets/inventarioslogo.png";
 import { MdOutlineInfo } from "react-icons/md";
 import { ThemeContext } from "../../App";
 import { RegistrarAdmin } from "../organismos/formularios/RegistrarAdmin";
+import { RecuperarPassword } from "../organismos/formularios/RecuperarPassword";
 
 export function LoginTemplate() {
   const { setTheme } = useContext(ThemeContext);
   setTheme("light");
   const { signInWithEmail } = useAuthStore();
-  const [state, setState] = useState(false);
-  const [stateInicio, setStateInicio] = useState(false);
+  const [showRegistro, setShowRegistro] = useState(false);
+  const [showRecuperar, setShowRecuperar] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -22,6 +24,7 @@ export function LoginTemplate() {
   } = useForm();
 
   async function iniciar(data) {
+    setErrorMsg(false);
     const response = await signInWithEmail({
       correo: data.correo,
       pass: data.pass,
@@ -29,28 +32,31 @@ export function LoginTemplate() {
     if (response) {
       navigate("/");
     } else {
-      setStateInicio(true);
+      setErrorMsg(true);
     }
   }
 
   return (
     <Container>
+      {showRegistro && <RegistrarAdmin setState={() => setShowRegistro(false)} />}
+      {showRecuperar && <RecuperarPassword setState={() => setShowRecuperar(false)} />}
+
       <div className="bg-shapes">
         <div className="shape shape-1" />
         <div className="shape shape-2" />
         <div className="shape shape-3" />
         <div className="shape shape-4" />
       </div>
+
       <div className="login-wrapper">
-        {state && <RegistrarAdmin setState={() => setState(!state)} />}
         <Card>
           <div className="card-header">
             <img src={logo} alt="logo" />
-            <h1>Inventario TI</h1>
+            <h1>TodoStock</h1>
             <p>Controla tu inventario de forma inteligente</p>
           </div>
 
-          {stateInicio && <ErrorMsg>Credenciales incorrectas</ErrorMsg>}
+          {errorMsg && <ErrorMsg>Credenciales incorrectas</ErrorMsg>}
 
           <form onSubmit={handleSubmit(iniciar)}>
             <InputText icono={<_v.iconoemail />}>
@@ -75,9 +81,15 @@ export function LoginTemplate() {
               {errors.pass && <span className="field-error">Campo requerido</span>}
             </InputText>
 
+            <div className="forgot-link">
+              <button type="button" onClick={() => setShowRecuperar(true)}>
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+
             <div className="card-actions">
               <Btnsave titulo="Iniciar sesión" bgcolor="#4F8CFF" />
-              <button type="button" className="btn-link" onClick={() => setState(!state)}>
+              <button type="button" className="btn-link" onClick={() => setShowRegistro(true)}>
                 Crear cuenta nueva
               </button>
             </div>
@@ -204,11 +216,30 @@ const Card = styled.div`
     gap: 8px;
   }
 
+  .forgot-link {
+    text-align: right;
+    margin-top: 2px;
+    button {
+      background: none;
+      border: none;
+      color: #4F8CFF;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: opacity 0.2s;
+      &:hover {
+        opacity: 0.75;
+        text-decoration: underline;
+      }
+    }
+  }
+
   .card-actions {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 16px;
     align-items: stretch;
     button, .btn {
       width: 100%;

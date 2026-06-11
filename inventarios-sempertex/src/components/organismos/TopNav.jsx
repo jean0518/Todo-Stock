@@ -23,7 +23,7 @@ export function TopNav() {
         <div className="nav-left">
           <div className="logo" onClick={() => navigate("/")}>
             <img src={_v.logo} alt="logo" />
-            <span className="logo-text">Inventario TI</span>
+            <span className="logo-text">TodoStock</span>
           </div>
         </div>
 

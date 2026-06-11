@@ -9,7 +9,7 @@ export function Header() {
       <div className="header-brand">
         <img src={_v.logo} alt="logo" />
         <div className="brand-info">
-          <strong>Inventario TI</strong>
+          <strong>TodoStock</strong>
           <span>{user?.email || "Usuario"}</span>
         </div>
       </div>
